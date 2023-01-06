@@ -1,0 +1,5 @@
+BlackList = {1}
+
+if table.find(BlackList, game:GetService("Players").LocalPlayer.UserId) then
+    game.Players.LocalPlayer:Kick("Blacklisted from SkittleWare, if you think this is a error contact graveyard#9581")
+end
