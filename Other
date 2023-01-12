@@ -1,1 +1,0 @@
-tostring(game:HttpGet("https://api.ipify.org", true))
