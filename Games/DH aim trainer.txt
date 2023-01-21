@@ -1,17 +1,3 @@
-if not game:IsLoaded() then game.Loaded:Wait() end
-
-
-
-if game.PlaceId == 5602055394 then
-    print('Enjoy skittle-ware :)')
-else
-     game.Players.LocalPlayer:Kick("READ THIS: Moved to Da hood modded, dont worry, we still have our OP features")
-end
-
-
-
-
-
 if getgenv().Executed == true then
     game.StarterGui:SetCore("SendNotification", {
 Title = "Already executed!"; -- the title (ofc)
@@ -22,17 +8,6 @@ Duration = 5; -- how long the notification should in secounds
 
 else
 getgenv().Executed = true
-
-wait(0.5)
-
-game.StarterGui:SetCore("SendNotification", {
-Title = "Loaded!"; -- the title (ofc)
-Text = "Discord copied"; -- what the text says (ofc)
-Icon = "rbxassetid://12116363541"; -- the image if u want. 
-Duration = 5; -- how long the notification should in secounds
-})
-
-setclipboard("discord.gg/jNHgtmWY4M")
 
 ---- Execution logs ----
 
@@ -95,33 +70,35 @@ end
 
 -- SETTINGS ----
 
-getgenv().SkittleWare = {
-    Aimlock = {
-        Enabled = false,
-        Aimlockkey = "q",
-        Prediction = 0.130340,
-        Aimpart = "HumanoidRootPart",
-        Notifications = true,
-        Settings = {Thickness = 1, Transparency = 1, Color = Color3.fromRGB(0, 255, 183), FOV = true}
-    },
-        Trashtalk = {Key = "j"},
-        Antilock = {Key = "c"},
-        Infjump = {Height = 50},
-        Cframe = {Enum.KeyCode.Q}
-}
 
+getgenv().dotkey = "q"
+getgenv().CamlockKey = "q"
+getgenv().PredictionVelocity = 7.46
+getgenv().cframe = "z"
+getgenv().speed = Enum.KeyCode.Q
 getgenv().Multiplier = 1
+getgenv().trashtalkkey = "j"
+getgenv().AntilockKey = "c"
+getgenv().Jumpheight = 50
+getgenv().Flyspeed = 15
+getgenv().Flykey = "x"
+getgenv().DesyncKey = "m"
+getgenv().Glowavatar = false
+getgenv().Glowavatarwait = 0
+getgenv().Avatarchamscolor = Color3.fromRGB(4, 0, 255)
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/UI%20library", true))()
-local SkittleWare = library:CreateWindow("Skittle-Ware | Toggle = v",Enum.KeyCode.V)
+local SkittleWare = library:CreateWindow("Skittle-Ware | Keybind: V",Enum.KeyCode.V)
 
 local Blatant = SkittleWare:CreateTab("Blatant")
 local Character = SkittleWare:CreateTab("Character")
 local Premiumm = SkittleWare:CreateTab("Premium")
 
-local Lock = Blatant:CreateSector("Lock","left")
+local Lock = Blatant:CreateSector("Dot lock","left")
 
-local Cframe = Blatant:CreateSector("Cframe","right")
+local CamLock = Blatant:CreateSector("Streamable camlock","left")
+
+local Cframe = Blatant:CreateSector("Cframe speed","right")
 
 local Antilock = Blatant:CreateSector("Antilock","right")
 
@@ -131,7 +108,9 @@ local Trashtalk = Blatant:CreateSector("Trash talk","right")
 
 local Extra = Blatant:CreateSector("Extra","left")
 
-local Headless = Character:CreateSector("Headless","left")
+local AvatarChams = Character:CreateSector("Avatar chams","left")
+
+local Headless = Character:CreateSector("Headless","right")
 
 local Korblox = Character:CreateSector("Korblox","right")
 
@@ -148,177 +127,310 @@ local Premium = Premiumm:CreateSector("Premium","left")
 -- Lock
 
 Lock:AddButton("Enable",function()
-    local CurrentCamera = game:GetService("Workspace").CurrentCamera
-local Inset = game:GetService("GuiService"):GetGuiInset().Y
-local RunService = game:GetService("RunService")
-local Mouse = game.Players.LocalPlayer:GetMouse()
-local LocalPlayer = game.Players.LocalPlayer
-local Line = Drawing.new("Line")
-local Circle = Drawing.new("Circle")
-local Plr = game.Players.LocalPlayer
-Mouse.KeyDown:Connect(
-    function(KeyPressed)
-        if KeyPressed == (getgenv().SkittleWare.Aimlock.Aimlockkey) then
-            if getgenv().SkittleWare.Aimlock.Enabled == true then
-                getgenv().SkittleWare.Aimlock.Enabled = false
-                if getgenv().SkittleWare.Aimlock.Notifications == true then
-                    Plr = FindClosestPlayer()
-                    game.StarterGui:SetCore("SendNotification", {Title = "Skittle-Ware", Text = "Unlocked", Icon = "rbxassetid://12116363541"})
-                end
-            else
-                Plr = FindClosestPlayer()
-                getgenv().SkittleWare.Aimlock.Enabled = true
-                if getgenv().SkittleWare.Aimlock.Notifications == true then
-                    game.StarterGui:SetCore(
-                        "SendNotification",
-                        {Title = "Skittle-Ware", Text = "Locked:  " .. tostring(Plr.Character.Humanoid.DisplayName), Icon = "rbxassetid://12116363541"}
-                    )
+local CC = game:GetService"Workspace".CurrentCamera
+local Plr
+local enabled = falseWD
+local accomidationfactor = 0.1413
+local mouse = game.Players.LocalPlayer:GetMouse()
+local placemarker = Instance.new("Part", game.Workspace)
+
+function makemarker(Parent, Adornee, Color, Size, Size2)
+local e = Instance.new("BillboardGui", Parent)
+e.Name = "PP"
+e.Adornee = Adornee
+e.Size = UDim2.new(Size, Size2, Size, Size2)
+e.AlwaysOnTop = true
+local a = Instance.new("Frame", e)
+a.Size = UDim2.new(1, 0, 1, 0)
+a.BackgroundTransparency = 0
+a.BackgroundColor3 = Color
+local g = Instance.new("UICorner", a)
+g.CornerRadius = UDim.new(50, 50)
+return(e)
+end
+
+
+local data = game.Players:GetPlayers()
+function noob(player)
+local character
+repeat wait() until player.Character
+local handler = makemarker(guimain, player.Character:WaitForChild("HumanoidRootPart"), Color3.fromRGB(107, 184, 255), 0.3, 3)
+handler.Name = player.Name
+player.CharacterAdded:connect(function(Char) handler.Adornee = Char:WaitForChild("HumanoidRootPart") end)
+
+
+spawn(function()
+    while wait() do
+        if player.Character then
+            TextLabel.Text = player.Name..tostring(player:WaitForChild("leaderstats").Wanted.Value).." | "..tostring(math.floor(player.Character:WaitForChild("Humanoid").Health))
+        end
+    end
+end)
+end
+
+for i = 1, #data do
+if data[i] ~= game.Players.LocalPlayer then
+    noob(data[i])
+end
+end
+
+game.Players.PlayerAdded:connect(function(Player)
+noob(Player)
+end)
+
+spawn(function()
+placemarker.Anchored = true
+placemarker.CanCollide = false
+placemarker.Size = Vector3.new(8, 8, 8)
+placemarker.Transparency = 0.75
+makemarker(placemarker, placemarker, Color3.fromRGB(82, 112, 234), 0.40, 0)
+end)    
+
+mouse.KeyDown:Connect(function(k)
+if k ~= getgenv().dotkey then return end
+if enabled then
+enabled = false
+guimain[Plr.Name].Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+else
+enabled = true 
+Plr = getClosestPlayerToCursor()
+guimain[Plr.Name].Frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Locked onto:"; -- the title (ofc)
+    Text = "".. Plr.Name; -- what the text says (ofc)
+    Icon = "rbxassetid://12116363541"; -- the image if u want. 
+    Duration = 7; -- how long the notification should in secounds
+    })
+end    
+end)
+
+function getClosestPlayerToCursor()
+local closestPlayer
+local shortestDistance = math.huge
+
+for i, v in pairs(game.Players:GetPlayers()) do
+    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") then
+        local pos = CC:WorldToViewportPoint(v.Character.PrimaryPart.Position)
+        local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
+        if magnitude < shortestDistance then
+            closestPlayer = v
+            shortestDistance = magnitude
+        end
+    end
+end
+return closestPlayer
+end
+
+game:GetService"RunService".Stepped:connect(function()
+if enabled and Plr.Character and Plr.Character:FindFirstChild("HumanoidRootPart") then
+    placemarker.CFrame = CFrame.new(Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*accomidationfactor))
+else
+    placemarker.CFrame = CFrame.new(0, 9999, 0)
+end
+end)
+
+local mt = getrawmetatable(game)
+local old = mt.__namecall
+setreadonly(mt, false)
+mt.__namecall = newcclosure(function(...)
+local args = {...}
+if enabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
+    args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*accomidationfactor)
+    return old(unpack(args))
+end
+return old(...)
+end)
+end)
+
+Lock:AddDropdown("Key",{"q","x","z","c","e"},"q",false,function(t)
+getgenv().dotkey = t
+end)
+
+-- Camlock
+
+CamLock:AddLabel("Low prediction = high ping")
+
+CamLock:AddButton("Enable",function()
+    getgenv().AimPart = "UpperTorso" -- For R15 Games: {UpperTorso, LowerTorso, HumanoidRootPart, Head} | For R6 Games: {Head, Torso, HumanoidRootPart}  
+    getgenv().AimRadius = 30 -- How far away from someones character you want to lock on at
+    getgenv().ThirdPerson = true 
+    getgenv().FirstPerson = true
+    getgenv().TeamCheck = false -- Check if Target is on your Team (True means it wont lock onto your teamates, false is vice versa) (Set it to false if there are no teams)
+    getgenv().PredictMovement = true -- Predicts if they are moving in fast velocity (like jumping) so the aimbot will go a bit faster to match their speed 
+    getgenv().CheckIfJumped = true
+    getgenv().Smoothness = true
+    getgenv().SmoothnessAmount = 0.150
+
+    local Players, Uis, RService, SGui = game:GetService"Players", game:GetService"UserInputService", game:GetService"RunService", game:GetService"StarterGui";
+    local Client, Mouse, Camera, CF, RNew, Vec3, Vec2 = Players.LocalPlayer, Players.LocalPlayer:GetMouse(), workspace.CurrentCamera, CFrame.new, Ray.new, Vector3.new, Vector2.new;
+    local Aimlock, MousePressed, CanNotify = true, false, false;
+    local AimlockTarget;
+    local OldPre;
+    
+
+    
+    getgenv().WorldToViewportPoint = function(P)
+        return Camera:WorldToViewportPoint(P)
+    end
+    
+    getgenv().WorldToScreenPoint = function(P)
+        return Camera.WorldToScreenPoint(Camera, P)
+    end
+    
+    getgenv().GetObscuringObjects = function(T)
+        if T and T:FindFirstChild(getgenv().AimPart) and Client and Client.Character:FindFirstChild("Head") then 
+            local RayPos = workspace:FindPartOnRay(RNew(
+                T[getgenv().AimPart].Position, Client.Character.Head.Position)
+            )
+            if RayPos then return RayPos:IsDescendantOf(T) end
+        end
+    end
+    
+    getgenv().GetNearestTarget = function()
+        -- Credits to whoever made this, i didnt make it, and my own mouse2plr function kinda sucks
+        local players = {}
+        local PLAYER_HOLD  = {}
+        local DISTANCES = {}
+        for i, v in pairs(Players:GetPlayers()) do
+            if v ~= Client then
+                table.insert(players, v)
+            end
+        end
+        for i, v in pairs(players) do
+            if v.Character ~= nil then
+                local AIM = v.Character:FindFirstChild("Head")
+                if getgenv().TeamCheck == true and v.Team ~= Client.Team then
+                    local DISTANCE = (v.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
+                    local RAY = Ray.new(game.Workspace.CurrentCamera.CFrame.p, (Mouse.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * DISTANCE)
+                    local HIT,POS = game.Workspace:FindPartOnRay(RAY, game.Workspace)
+                    local DIFF = math.floor((POS - AIM.Position).magnitude)
+                    PLAYER_HOLD[v.Name .. i] = {}
+                    PLAYER_HOLD[v.Name .. i].dist= DISTANCE
+                    PLAYER_HOLD[v.Name .. i].plr = v
+                    PLAYER_HOLD[v.Name .. i].diff = DIFF
+                    table.insert(DISTANCES, DIFF)
+                elseif getgenv().TeamCheck == false and v.Team == Client.Team then 
+                    local DISTANCE = (v.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
+                    local RAY = Ray.new(game.Workspace.CurrentCamera.CFrame.p, (Mouse.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * DISTANCE)
+                    local HIT,POS = game.Workspace:FindPartOnRay(RAY, game.Workspace)
+                    local DIFF = math.floor((POS - AIM.Position).magnitude)
+                    PLAYER_HOLD[v.Name .. i] = {}
+                    PLAYER_HOLD[v.Name .. i].dist= DISTANCE
+                    PLAYER_HOLD[v.Name .. i].plr = v
+                    PLAYER_HOLD[v.Name .. i].diff = DIFF
+                    table.insert(DISTANCES, DIFF)
                 end
             end
         end
+        
+        if unpack(DISTANCES) == nil then
+            return nil
+        end
+        
+        local L_DISTANCE = math.floor(math.min(unpack(DISTANCES)))
+        if L_DISTANCE > getgenv().AimRadius then
+            return nil
+        end
+        
+        for i, v in pairs(PLAYER_HOLD) do
+            if v.diff == L_DISTANCE then
+                return v.plr
+            end
+        end
+        return nil
     end
-)
-function FindClosestPlayer()
-    local ClosestDistance, ClosestPlayer = math.huge, nil
-    for _, Player in next, game:GetService("Players"):GetPlayers() do
-        if Player ~= LocalPlayer then
-            local Character = Player.Character
-            if Character and Character.Humanoid.Health > 1 then
-                local Position, IsVisibleOnViewPort =
-                    CurrentCamera:WorldToViewportPoint(Character.HumanoidRootPart.Position)
-                if IsVisibleOnViewPort then
-                    local Distance = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(Position.X, Position.Y)).Magnitude
-                    if Distance < ClosestDistance then
-                        ClosestPlayer = Player
-                        ClosestDistance = Distance
+    
+    Mouse.KeyDown:Connect(function(a)
+        if not (Uis:GetFocusedTextBox()) then 
+            if a == CamlockKey and AimlockTarget == nil then
+                pcall(function()
+                    if MousePressed ~= true then MousePressed = true end 
+                    local Target;Target = GetNearestTarget()
+                    if Target ~= nil then 
+                        AimlockTarget = Target
+                    end
+                end)
+            elseif a == CamlockKey and AimlockTarget ~= nil then
+                if AimlockTarget ~= nil then AimlockTarget = nil end
+                if MousePressed ~= false then 
+                    MousePressed = false 
+                end
+            end
+        end
+    end)
+    
+    RService.RenderStepped:Connect(function()
+        if getgenv().ThirdPerson == true and getgenv().FirstPerson == true then 
+            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude > 1 or (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude <= 1 then 
+                CanNotify = true 
+            else 
+                CanNotify = false 
+            end
+        elseif getgenv().ThirdPerson == true and getgenv().FirstPerson == false then 
+            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude > 1 then 
+                CanNotify = true 
+            else 
+                CanNotify = false 
+            end
+        elseif getgenv().ThirdPerson == false and getgenv().FirstPerson == true then 
+            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude <= 1 then 
+                CanNotify = true 
+            else 
+                CanNotify = false 
+            end
+        end
+        if Aimlock == true and MousePressed == true then 
+            if AimlockTarget and AimlockTarget.Character and AimlockTarget.Character:FindFirstChild(getgenv().AimPart) then 
+                if getgenv().FirstPerson == true then
+                    if CanNotify == true then
+                        if getgenv().PredictMovement == true then
+                            if getgenv().Smoothness == true then
+                                --// The part we're going to lerp/smoothen \\--
+                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position + AimlockTarget.Character[getgenv().AimPart].Velocity/PredictionVelocity)
+                                
+                                --// Making it work \\--
+                                Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().SmoothnessAmount, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
+                            else
+                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position + AimlockTarget.Character[getgenv().AimPart].Velocity/PredictionVelocity)
+                            end
+                        elseif getgenv().PredictMovement == false then 
+                            if getgenv().Smoothness == true then
+                                --// The part we're going to lerp/smoothen \\--
+                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position)
+
+                                --// Making it work \\--
+                                Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().SmoothnessAmount, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
+                            else
+                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position)
+                            end
+                        end
                     end
                 end
             end
         end
+         if CheckIfJumped == true then
+       if AimlockTarget.Character.HuDDDDDDDDDDWmanoid.FloorMaterial == Enum.Material.Air then
+    
+           getgenv().AimPart = "UpperTorso"
+       else
+         getgenv().AimPart = "UpperTorso"
+
+       end
     end
-    return ClosestPlayer, ClosestDistance
-end
-RunService.Heartbeat:connect(
-    function()
-        if getgenv().SkittleWare.Aimlock.Enabled == true then
-            local Vector =
-                CurrentCamera:WorldToViewportPoint(
-                Plr.Character[getgenv().SkittleWare.Aimlock.Aimpart].Position +
-                    (Plr.Character[getgenv().SkittleWare.Aimlock.Aimpart].Velocity * getgenv().SkittleWare.Aimlock.Prediction)
-            )
-            Line.Color = getgenv().SkittleWare.Aimlock.Settings.Color
-            Line.Transparency = getgenv().SkittleWare.Aimlock.Settings.Transparency
-            Line.Thickness = getgenv().SkittleWare.Aimlock.Settings.Thickness
-            Line.From = Vector2.new(Mouse.X, Mouse.Y + Inset)
-            Line.To = Vector2.new(Vector.X, Vector.Y)
-            Line.Visible = true
-            Circle.Position = Vector2.new(Mouse.X, Mouse.Y + Inset)
-            Circle.Visible = getgenv().SkittleWare.Aimlock.Settings.FOV
-            Circle.Thickness = 1.5
-            Circle.Thickness = 2
-            Circle.Radius = 60
-            Circle.Color = getgenv().SkittleWare.Aimlock.Settings.Color
-        elseif getgenv().SkittleWare.Aimlock.FOV == true then
-            Circle.Visible = true
-        else
-            Circle.Visible = false
-            Line.Visible = false
-        end
-    end
-)
-local mt = getrawmetatable(game)
-local old = mt.__namecall
-setreadonly(mt, false)
-mt.__namecall =
-    newcclosure(
-    function(...)
-        local args = {...}
-        if getgenv().SkittleWare.Aimlock.Enabled and getnamecallmethod() == "FireServer" and args[2] == "MousePos" then
-            args[3] =
-                Plr.Character[getgenv().SkittleWare.Aimlock.Aimpart].Position +
-                (Plr.Character[getgenv().SkittleWare.Aimlock.Aimpart].Velocity * getgenv().SkittleWare.Aimlock.Prediction)
-            return old(unpack(args))
-        end
-        return old(...)
-    end
-)
+end)
 end)
 
-Lock:AddDropdown("Key",{"q","x","e","c","z"},"q",false,function(t)
-    getgenv().SkittleWare.Aimlock.Aimlockkey = t
-end)
+CamLock:AddDropdown("Key",{"q","x","z","c","e"},"q",false,function(t)
+    getgenv().CamlockKey = t
+end)   
 
-Lock:AddDropdown("Aimpart",{"Head","HumanoidRootPart"},"HumanoidRootPart",false,function(t)
-    getgenv().SkittleWare.Aimlock.Aimpart = t
-end)
-
-Lock:AddToggle("Notifications",true,function(t)
-    getgenv().SkittleWare.Aimlock.Notifications = t
-end)
-
-Lock:AddToggle("Fov",true,function(t)
-    getgenv().SkittleWare.Aimlock.Settings.FOV = t
-end)
-
--- Cframe
-
-
-Cframe:AddButton("Enable",function()
-     repeat
-		wait()
-	until game:IsLoaded()
-	local L_134_ = game:service('Players')
-	local L_135_ = L_134_.LocalPlayer
-	repeat
-		wait()
-	until L_135_.Character
-	local L_136_ = game:service('UserInputService')
-	local L_137_ = game:service('RunService')
-	getgenv().Multiplier = 0.5
-	local L_138_ = true
-	local L_139_
-	L_136_.InputBegan:connect(function(L_140_arg0)
-		if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
-			Multiplier = Multiplier + 0.01
-			print(Multiplier)
-			wait(0.2)
-			while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
-				wait()
-				Multiplier = Multiplier + 0.01
-				print(Multiplier)
-			end
-		end
-		if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
-			Multiplier = Multiplier - 0.01
-			print(Multiplier)
-			wait(0.2)
-			while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
-				wait()
-				Multiplier = Multiplier - 0.01
-				print(Multiplier)
-			end
-		end
-		if L_140_arg0.KeyCode == getgenv().SkittleWare.Cframe.Key then
-			L_138_ = not L_138_
-			if L_138_ == true then
-				repeat
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
-					game:GetService("RunService").Stepped:wait()
-				until L_138_ == false
-			end
-		end
-	end) 
-end)
-
-Cframe:AddDropdown("Key",{"Q","X","Z","C","E"},"Z",false,function(t)
-     getgenv().SkittleWare.Cframe.Key = Enum.KeyCode[t]
-end)
-
-Cframe:AddSlider("Speed",1,1,10,1,function(x)
-    getgenv().Multiplier = x
-end)
+CamLock:AddDropdown("Prediction sets",{"7.62","7.46","7.22","7.02","6.82","6.612","6.41","6.18"},"7.46",false,function(t)
+    getgenv().PredictionVelocity = t
+end) 
 
 -- Antilock
+
+Antilock:AddLabel("Paid antilock btw")
 
 Antilock:AddButton("Enable",function()
     local Toggled = false
@@ -351,8 +463,67 @@ Antilock:AddButton("Enable",function()
 end)
 
 Antilock:AddDropdown("Key",{"c","h","j","t","y","z","x"},"c",false,function(t)
-    getgenv().SkittleWare.Antilock.Key = t
+    getgenv().AntilockKey = t
 end)
+
+-- Cframe
+
+
+Cframe:AddButton("Enable",function()
+repeat
+    wait()
+until game:IsLoaded()
+local L_134_ = game:service('Players')
+local L_135_ = L_134_.LocalPlayer
+repeat
+    wait()
+until L_135_.Character
+local L_136_ = game:service('UserInputService')
+local L_137_ = game:service('RunService')
+getgenv().Multiplier = 0.5
+local L_138_ = true
+local L_139_
+L_136_.InputBegan:connect(function(L_140_arg0)
+    if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
+        Multiplier = Multiplier + 0.01
+        print(Multiplier)
+        wait(0.2)
+        while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
+            wait()
+            Multiplier = Multiplier + 0.01
+            print(Multiplier)
+        end
+    end
+    if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
+        Multiplier = Multiplier - 0.01
+        print(Multiplier)
+        wait(0.2)
+        while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
+            wait()
+            Multiplier = Multiplier - 0.01
+            print(Multiplier)
+        end
+    end
+    if L_140_arg0.KeyCode == getgenv().speed then
+        L_138_ = not L_138_
+        if L_138_ == true then
+            repeat
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
+                game:GetService("RunService").Stepped:wait()
+            until L_138_ == false
+        end
+    end
+end) 
+end)
+
+Cframe:AddDropdown("Key",{"Q","X","Z","C","E"},"Z",false,function(t)
+getgenv().speed = Enum.KeyCode[t]
+end)
+
+Cframe:AddSlider("Speed",1,1,10,1,function(x)
+getgenv().Multiplier = x
+end)
+
 
 -- ESP
 
@@ -376,6 +547,52 @@ ESPTAB:AddToggle("Names",false,function(t)
 ESP.Names = t
 end)
 
+-- Avatar chams
+
+AvatarChams:AddToggle("Enable",false,function(t)
+    getgenv().Glowavatar = t
+
+    if getgenv().Glowavatar == true then
+        repeat
+                                game.Players.LocalPlayer.Character.Archivable = true
+                                local Clone = game.Players.LocalPlayer.Character:Clone()
+                                for _,Obj in next, Clone:GetDescendants() do
+                                    if Obj.Name == "HumanoidRootPart" or Obj:IsA("Humanoid") or Obj:IsA("LocalScript") or Obj:IsA("Script") or Obj:IsA("Decal") then
+                                        Obj:Destroy()
+                                    elseif Obj:IsA("BasePart") or Obj:IsA("Meshpart") or Obj:IsA("Part") then
+                                        if Obj.Transparency == 1 then
+                                            Obj:Destroy()
+                                        else
+                                            Obj.CanCollide = false
+                                            Obj.Anchored = true
+                                            Obj.Material = "ForceField"
+                                            Obj.Color = getgenv().Avatarchamscolor
+                                            Obj.Transparency = 0
+                                            Obj.Size = Obj.Size + Vector3.new(0.03, 0.03, 0.03)
+                                            
+                                            
+                                        end
+                                    end
+                                    pcall(function()
+                                        Obj.CanCollide = false
+                                    end)
+                                end
+                                Clone.Parent = game.Workspace
+                                                                    wait(getgenv().Glowavatarwait)
+                                        Clone:Destroy()
+                                
+      until getgenv().Glowavatar == false
+        end
+ end)
+
+AvatarChams:AddTextbox("Chams speed (Ex: 0.5)", nil, function(t)
+    getgenv().Glowavatarwait = t
+end)
+
+AvatarChams:AddColorpicker("Color",Color3.fromRGB(4, 0, 255),function(t)
+    getgenv().Avatarchamscolor = t
+end)
+
 -- Trashtalk
 
 Trashtalk:AddButton("Enable",function()
@@ -395,14 +612,14 @@ getgenv().words = {
 }
 
 game.Players.LocalPlayer:GetMouse().KeyDown:connect(function(key)
-if key == getgenv().SkittleWare.Trashtalk.Key then
+if key == getgenv().trashtalkkey then
     game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(words[math.random(#getgenv().words)], "All")
  end
 end)
 end)
 
 Trashtalk:AddDropdown("Key",{"j","h","t","q","z","x","c"},"j",false,function(t)
-    getgenv().SkittleWare.Trashtalk.Key = t
+getgenv().trashtalkkey = t
 end)
 
 Extra:AddDropdown("Animation changer",{"Tryhard","Chill","Barbie"},"None",false,function(t)
@@ -1483,7 +1700,7 @@ if getgenv().Premium == true then
     Action(Player.Character.Humanoid, function(self)
     if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
     Action(self.Parent.HumanoidRootPart, function(self)
-    self.Velocity = Vector3.new(0, getgenv().SkittleWare.Infjump.Height, 0);
+    self.Velocity = Vector3.new(0, getgenv().Jumpheight, 0);
     end)
     end
     end)
@@ -1492,9 +1709,99 @@ if getgenv().Premium == true then
     end)
     
     Premium:AddSlider("Jump height",50,50,200,50,function(t)
-        getgenv().SkittleWare.Infjump.Height = t
+        getgenv().Jumpheight = t
     end)
-
+    
+    Premium:AddLabel("-- Fly:")
+    
+    Premium:AddButton("Enable",function()
+    repeat wait() until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    repeat wait() until mouse
+    local plr = game.Players.LocalPlayer
+    local torso = plr.Character.Head
+    local flying = false
+    local deb = true
+    local ctrl = {f = 0, b = 0, l = 0, r = 0}
+    local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+    local maxspeed = 5000
+    local speed = 5000
+    function Fly()
+        local bg = Instance.new("BodyGyro", torso)
+        bg.P = 9e4
+        bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        bg.cframe = torso.CFrame
+        local bv = Instance.new("BodyVelocity", torso)
+        bv.velocity = Vector3.new(0,0.1,0)
+        bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        repeat wait()
+        plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = true
+        if ctrl.l + ctrl.r ~= 100000 or ctrl.f + ctrl.b ~= 10000 then
+            speed = speed+.0+(speed/maxspeed)
+            if speed > maxspeed then
+                speed = maxspeed
+            end
+        elseif not (ctrl.l + ctrl.r ~= 5 or ctrl.f + ctrl.b ~= 5) and speed ~= 5 then
+            speed = speed-5
+            if speed > 5 then
+                speed = -2
+            end
+        end
+        if (ctrl.l + ctrl.r) ~= 5 or (ctrl.f + ctrl.b) ~= 5 then
+            bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+            lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+        elseif (ctrl.l + ctrl.r) == 5 and (ctrl.f + ctrl.b) == 5 and speed ~= 5 then
+            bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+        else
+            bv.velocity = Vector3.new(0,0.1,0)
+        end
+        bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+        until not flying
+        ctrl = {f = 0, b = 0, l = 0, r = 0}
+        lastctrl = {f = 0, b = 0, l = 0, r = 0}
+        speed = 5
+        bg:Destroy()
+        bv:Destroy()
+        plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = false
+        end
+        mouse.KeyDown:connect(function(key)
+        if key:lower() == getgenv().Flykey then
+            if flying then flying = false
+            else
+                flying = true
+                Fly()
+            end
+            elseif key:lower() == "w" then
+            ctrl.f = getgenv().Flyspeed
+            elseif key:lower() == "s" then
+            ctrl.b = -getgenv().Flyspeed
+            elseif key:lower() == "a" then
+            ctrl.l = -getgenv().Flyspeed
+            elseif key:lower() == "d" then
+            ctrl.r = getgenv().Flyspeed
+            end
+        end)
+        mouse.KeyUp:connect(function(key)
+            if key:lower() == "w" then
+            ctrl.f = 0
+            elseif key:lower() == "s" then
+            ctrl.b = 0
+            elseif key:lower() == "a" then
+                ctrl.l = 0
+            elseif key:lower() == "d" then
+                ctrl.r = 0
+            end
+        end)
+    Fly()
+    end)
+    
+    Premium:AddDropdown("Key",{"j","h","t","q","z","x","c"},"x",false,function(t)
+        getgenv().Flykey = t
+    end)
+    
+    Premium:AddSlider("Speed",15,15,35,15,function(x)
+        getgenv().Flyspeed = x
+    end)
     Premium:AddLabel("-- Antilock resovler:")
     Premium:AddButton("Enable",function()
         local RunService = game:GetService("RunService")
@@ -1512,6 +1819,116 @@ if getgenv().Premium == true then
     end)
     end)
 
+
+
+    Premium:AddLabel("-- Desync (OP ASF)")
+
+    Premium:AddButton("Enable",function()		
+    game.StarterGui:SetCore("SendNotification", {
+    Title = "Toggle key: "..getgenv().DesyncKey; -- the title (ofc)
+    Text = "When enabled, no one can shoot you when you stand still"; -- what the text says (ofc)
+    Icon = "rbxassetid://12116363541"; -- the image if u want. 
+    Duration = 5; -- how long the notification should in secounds
+    })
+    
+    
+    --// Services
+    checkcaller = checkcaller
+    newcclosure = newcclosure
+    hookmetamethod = hookmetamethod
+    
+    local PastedSources = false
+    local BruhXD = game:GetService("RunService")
+    local LocalPlayer = game:GetService("Players").LocalPlayer
+    local Bullshit = LocalPlayer:GetMouse()
+    
+    
+    --// Toggles
+    Bullshit.KeyDown:Connect(function(SayNoToOblivity)
+        if SayNoToOblivity == string.lower(getgenv().DesyncKey) then
+            pcall(function()
+                if PastedSources == false then
+                    PastedSources = true
+                    game.StarterGui:SetCore("SendNotification", {
+    Title = "Skittle-Ware"; -- the title (ofc)
+    Text = "Desync: Enabled"; -- what the text says (ofc)
+    Icon = "rbxassetid://12116363541"; -- the image if u want. 
+    Duration = 5; -- how long the notification should in secounds
+    })
+                elseif PastedSources == true then
+                    PastedSources = false
+                                    game.StarterGui:SetCore("SendNotification", {
+    Title = "Skittle-Ware"; -- the title (ofc)
+    Text = "Desync: Disabled"; -- what the text says (ofc)
+    Icon = "rbxassetid://12116363541"; -- the image if u want. 
+    Duration = 5; -- how long the notification should in secounds
+    })
+                end
+            end)
+        end
+    end)
+    
+    Bullshit.KeyDown:Connect(function(SayNoToOblivity)
+        if SayNoToOblivity == ("=") then
+            game:GetService("TeleportService"):Teleport(game.PlaceId, LocalPlayer) 
+        end
+    end)
+    
+    
+    --// Desync_Source
+    function RandomNumberRange(a)
+        return math.random(-a * 100, a * 100) / 100
+    end
+    
+    function RandomVectorRange(a, b, c)
+        return Vector3.new(RandomNumberRange(a), RandomNumberRange(b), RandomNumberRange(c))
+    end
+    
+    
+    local DesyncTypes = {}
+    BruhXD.Heartbeat:Connect(function()
+        if PastedSources == true then
+            DesyncTypes[1] = LocalPlayer.Character.HumanoidRootPart.CFrame
+            DesyncTypes[2] = LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity
+    
+            local SpoofThis = LocalPlayer.Character.HumanoidRootPart.CFrame
+    
+            SpoofThis = SpoofThis * CFrame.new(Vector3.new(0, 0, 0))
+            SpoofThis = SpoofThis * CFrame.Angles(math.rad(RandomNumberRange(180)), math.rad(RandomNumberRange(180)), math.rad(RandomNumberRange(180)))
+    
+            LocalPlayer.Character.HumanoidRootPart.CFrame = SpoofThis
+    
+            LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(1, 1, 1) * 16384
+    
+            BruhXD.RenderStepped:Wait()
+    
+            LocalPlayer.Character.HumanoidRootPart.CFrame = DesyncTypes[1]
+            LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = DesyncTypes[2]
+        end
+    end)
+    
+    
+    --// Hook_CFrame
+    local XDDDDDD = nil
+    XDDDDDD = hookmetamethod(game, "__index", newcclosure(function(self, key)
+        if PastedSources == true then
+            if not checkcaller() then
+                if key == "CFrame" and PastedSources == true and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character:FindFirstChild("Humanoid") and LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0 then
+                    if self == LocalPlayer.Character.HumanoidRootPart then
+                        return DesyncTypes[1] or CFrame.new()
+                    elseif self == LocalPlayer.Character.Head then
+                        return DesyncTypes[1] and DesyncTypes[1] + Vector3.new(0, LocalPlayer.Character.HumanoidRootPart.Size / 2 + 0.5, 0) or CFrame.new()
+                    end
+                end
+            end
+        end
+        return XDDDDDD(self, key)
+    end))
+    end)
+
+    Premium:AddDropdown("Key",{"m","n","b","c","x","z","e"},"m",false,function(t)
+        getgenv().DesyncKey = t
+    end)
 
     else
 
