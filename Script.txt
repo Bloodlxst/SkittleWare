@@ -15,12 +15,12 @@ Library:New({
     	Icon = "rbxassetid://12116363541"; -- the image if u want. 
     	Duration = 5; -- how long the notification should in secounds
     	
-    	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/DH%20aim%20trainer.txt", true))()
+    	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Universal", true))()
 })
 
 
 	end,
 	Cancel = function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/DH%20aim%20trainer.txt", true))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Universal", true))()
 	end
 })
