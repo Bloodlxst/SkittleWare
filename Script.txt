@@ -2,27 +2,4 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 
 loadstring(game:HttpGet("https://pastebin.com/raw/mP2rVtUp", true))() -- loading animation
 
-local Library = loadstring(game:HttpGet("https://www.soggy-ware.cf/Libs/PromptGui.lua"))()
-Library:New({
-	Title = "Skittle-Ware",
-    Footer = "1x premium giveaway every 25 members",
-    Text = "Would you like to join our discord?",
-    Icon = "http://www.roblox.com/thumbs/asset.ashx?assetid=12309653753&x=100&y=100&format=png",
-    Yes = function()
-    	setclipboard("discord.gg/jNHgtmWY4M")
-    	
-    	game.StarterGui:SetCore("SendNotification", {
-    	Title = "Skittle-Ware"; -- the title (ofc)
-    	Text = "Copied discord"; -- what the text says (ofc)
-    	Icon = "rbxassetid://12309653753"; -- the image if u want. 
-    	Duration = 5; -- how long the notification should in secounds
-    	
-    	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Universal", true))()
-})
-
-
-	end,
-	Cancel = function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Universal", true))()
-	end
-})
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Universal", true))()
