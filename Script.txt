@@ -2,4 +2,4 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 
 loadstring(game:HttpGet("https://pastebin.com/raw/mP2rVtUp", true))() -- loading animation
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Universal", true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Dahood", true))()
