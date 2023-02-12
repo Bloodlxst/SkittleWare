@@ -635,7 +635,7 @@ function Library:create(options)
 		Position = UDim2.new(0, 5, 1, -6),
 		Size = UDim2.new(0.2, 0, 0, 10),
 		Font = Enum.Font.SourceSans,
-		Text = "     discord.gg/p6mmb58fQQ",
+		Text = nil,
 		Theme = {TextColor3 = "Tertiary"},
 		TextSize = 15,
 		TextXAlignment = Enum.TextXAlignment.Left
