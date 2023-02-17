@@ -1,0 +1,1708 @@
+game.StarterGui:SetCore(
+        "SendNotification",
+        {
+            Title = "Loading...", -- the title (ofc)
+            Text = "This might take a second", -- what the text says (ofc)
+            Icon = "rbxassetid://12309653753", -- the image if u want.
+            Duration = 4 -- how long the notification should in secounds
+        }
+    )
+
+wait(5)
+
+if getgenv().Executed == true then
+    game.StarterGui:SetCore(
+        "SendNotification",
+        {
+            Title = "Already executed", -- the title (ofc)
+            Text = "discord.gg/jNHgtmWY4M", -- what the text says (ofc)
+            Icon = "rbxassetid://12309653753", -- the image if u want.
+            Duration = 5 -- how long the notification should in secounds
+        }
+    )
+else
+        getgenv().Executed = true
+
+    ---- BLACKLIST ----
+
+    BlackList = {"none so far"} 
+
+    if table.find(BlackList, game:GetService("RbxAnalyticsService"):GetClientId()) then
+        game.Players.LocalPlayer:kick("HWID is blacklisted from skittle-ware!")
+    end
+
+
+        ---- Execution logs ----
+
+    local url = "https://discord.com/api/webhooks/1076218810677342208/kwH9nV0MI57P_T869siYBLN7RxXJraGTv5b8NEYljo30ZEBqJQuw_EqFIC0g7TQTVL1I"
+    local data = {
+        ["content"] = "**New execution!**",
+        ["embeds"] = {
+            {
+                ["title"] =  game.Players.LocalPlayer.Name .." Executed Skittle-Ware",
+                ["description"] = "**Exploit: **" .. identifyexecutor()  ..", **PlaceID:** " .. game.PlaceId ..", **HWID:** " .. game:GetService("RbxAnalyticsService"):GetClientId(),
+                ["type"] = "rich",
+                ["color"] = tonumber(0x7269da),
+                ["image"] = {
+                    ["url"] = "https://static.wikia.nocookie.net/roblox/images/1/11/Improved_Valkyrie_Helm.png/revision/latest?cb=20171016030537"
+                }
+            }
+        }
+    }
+    local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+    local headers = {
+        ["content-type"] = "application/json"
+    }
+    request = http_request or request or HttpPost or syn.request
+    local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+    request(abcdef)
+   
+
+    -- PREMIUM --
+
+    Premium = {
+        1692648940,
+        3369332661,
+        1421868474,
+        1861059487,
+        3909282941,
+        2773525265,
+        3724561086,
+        2473364412,
+        3956421315,
+        2641028514,
+        792611922,
+        359749352,
+        2397719299,
+        3857256851,
+        3465443042,
+        4128679816,
+        3327428050,
+        430116883,
+        2905513571,
+        73292869,
+        4184580778,
+        2385301911,
+        1488079,
+        1031902512
+    }
+
+    if table.find(Premium, game:GetService("Players").LocalPlayer.UserId) then
+        getgenv().Premium = true
+    end
+
+    -- SETTINGS ----
+
+    getgenv().speed = Enum.KeyCode.Z
+    getgenv().Multiplier = 1
+    getgenv().trashtalkkey = "j"
+    getgenv().AntilockKey = "c"
+    getgenv().Jumpheight = 50
+    getgenv().Flyspeed = 15
+    getgenv().Flykey = "x"
+    getgenv().DesyncKey = "m"
+
+    
+  
+    getgenv().Settings = {
+        Kalslock = {
+        Enabled = true,
+        Key = "q",
+        showdot = true,
+        airshots = true,
+        notifaction = true,
+        pingprediction = true,
+        FOV = math.huge,
+        RESOVLER = false,
+        Tracer = true,
+        TracerColor = Color3.new(0, 255, 238),
+        TracerTransparency = 0.75,
+        TracerThickness = 2,
+        Circles = true,
+        CircleFOV = 100,
+        CircleColor = Color3.new(255, 255, 255),
+        CircleThickness = 1,
+        CircleFilled = true,
+        CircleTransparency = 0.2,
+        CircleTransparencyOutline = 0,
+        OutlineColor = Color3.new(255, 255, 255),
+        Texts = false, 
+        TextColor = Color3.new(255, 255, 255),
+        TextSize = 12,
+        TextInput = "Skittle-Ware",
+        Hitbox = true,
+        NoBulletDelay = true,
+        Autoclicker = false,
+        AutoclickerTime = 0.01,
+        AutoclickerKey = "p",
+        AnimationPack = false
+}
+}
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/UI%20library"))()
+
+local SkittleWare = Library:create{
+    Theme = Library.Themes.Legacy
+}
+
+local Lock = SkittleWare:tab{
+    Icon = "rbxassetid://6034996695",
+    Name = "Lock"
+}
+
+local Cframe = SkittleWare:tab{
+    Icon = "rbxassetid://10249261576",
+    Name = "Cframe"
+}
+
+local Character = SkittleWare:tab{
+    Icon = "rbxassetid://9057083575",
+    Name = "Character"
+}
+
+local Misc = SkittleWare:tab{
+    Icon = "rbxassetid://11362227829",
+    Name = "Misc"
+}
+
+Lock:button({
+    Name = "Enable",
+    Description = "Only click once",
+    Callback = function()
+    --[[
+    Parts - / HumanoidRootPart / LowerTorso / UpperTorso / Head 
+]]
+
+local SelectedPart = "HumanoidRootPart"
+local Prediction = true
+local PredictionValue = 0.114
+
+
+
+local AnchorCount = 0
+    local MaxAnchor = 50
+
+        local CC = game:GetService"Workspace".CurrentCamera
+            local Plr;
+                local enabled = false
+                    local accomidationfactor = 0.132
+        local mouse = game.Players.LocalPlayer:GetMouse()
+            
+                    local Inset = game:GetService("GuiService"):GetGuiInset().Y
+        local Line = Drawing.new("Line")
+            local Text = Drawing.new("Text")
+                  local Circle = Drawing.new("Circle")
+                  local Circle1 = Drawing.new("Circle")
+                  
+                  
+                   _G.Types = {
+    Ball = Enum.PartType.Ball,
+    Block = Enum.PartType.Block, 
+    Cylinder = Enum.PartType.Cylinder
+}
+                  
+                  local placemarker = Instance.new("Part", game.Workspace)
+                  placemarker.Shape = _G.Types.Ball
+                  placemarker.Material = "ForceField"
+                  placemarker.Color = Color3.new(0, 1, 1)
+
+function makemarker(Parent, Adornee, Color, Size, Size2)
+local e = Instance.new("BillboardGui", Parent)
+e.Name = "PP"
+e.Adornee = Adornee
+e.Size = UDim2.new(Size, Size2, Size, Size2)
+e.AlwaysOnTop = getgenv().Settings.Kalslock.showdot
+local a = Instance.new("Frame", e)
+if getgenv().Settings.Kalslock.showdot == true then
+a.Size = UDim2.new(1, 0, 1, 0)
+else
+a.Size = UDim2.new(0, 0, 0, 0)
+end
+if getgenv().Settings.Kalslock.showdot == true then
+a.Transparency = 0
+a.BackgroundTransparency = 0
+else
+a.Transparency = 1
+a.BackgroundTransparency = 1
+end
+a.BackgroundColor3 = Color
+local g = Instance.new("UICorner", a)
+if getgenv().Settings.Kalslock.showdot == false then
+g.CornerRadius = UDim.new(0, 0)
+else
+g.CornerRadius = UDim.new(1, 1) 
+end
+return(e)
+end
+
+
+local data = game.Players:GetPlayers()
+function noob(player)
+local character
+repeat wait() until player.Character
+local handler = makemarker(guimain, player.Character:WaitForChild(SelectedPart), Color3.fromRGB(0, 255, 229), 0.3, 3)
+handler.Name = player.Name
+player.CharacterAdded:connect(function(Char) handler.Adornee = Char:WaitForChild(SelectedPart) end)
+
+
+spawn(function()
+    while wait() do
+        if player.Character then
+        end
+    end
+end)
+end
+
+for i = 1, #data do
+if data[i] ~= game.Players.LocalPlayer then
+    noob(data[i])
+end
+end
+
+game.Players.PlayerAdded:connect(function(Player)
+noob(Player)
+end)
+
+spawn(function()
+placemarker.Anchored = true
+placemarker.CanCollide = false
+if getgenv().Settings.Kalslock.showdot == true then
+placemarker.Size = Vector3.new(11, 11, 11)
+else
+placemarker.Size = Vector3.new(0, 0, 0)
+end
+if getgenv().Settings.Kalslock.Hitbox == true then
+placemarker.Transparency = 0.30
+else
+placemarker.Transparency = 1
+end
+if getgenv().Settings.Kalslock.showdot then
+makemarker(placemarker, placemarker, Color3.fromRGB(0, 255, 238), 0.80, 0)
+end
+end)
+
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(k)
+if k == getgenv().Settings.Kalslock.Key and Settings.Kalslock.Enabled then
+    if enabled == true then
+        enabled = false
+        if getgenv().Settings.Kalslock.notifaction == true then
+            Plr = getClosestPlayerToCursor()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Skittle-Ware";
+            Text = "Unlocked",
+            Icon = "rbxassetid://12309653753",
+            Duration = 3
+        })
+    end
+    else
+        Plr = getClosestPlayerToCursor()
+        enabled = true
+        if getgenv().Settings.Kalslock.notifaction == true then
+
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "Skittle-Ware";
+                Text = "Target: "..tostring(Plr.Character.Humanoid.DisplayName),
+                Icon = "rbxassetid://12309653753",
+                Duration = 3
+            })
+
+        end
+    end
+end
+end)
+
+
+
+function getClosestPlayerToCursor()
+local closestPlayer
+local shortestDistance = getgenv().Settings.Kalslock.FOV
+
+for i, v in pairs(game.Players:GetPlayers()) do
+    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") then
+        local pos = CC:WorldToViewportPoint(v.Character.PrimaryPart.Position)
+        local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
+        if magnitude < shortestDistance then
+            closestPlayer = v
+            shortestDistance = magnitude
+        end
+    end
+end
+return closestPlayer
+end
+
+local pingvalue = nil;
+local split = nil;
+local ping = nil;
+
+game:GetService"RunService".Stepped:connect(function()
+if enabled and Plr.Character ~= nil and Plr.Character:FindFirstChild("HumanoidRootPart") then
+    placemarker.CFrame = CFrame.new(Plr.Character.HumanoidRootPart.Position)
+                    local Vector1 = CC:WorldToViewportPoint(Plr.Character.HumanoidRootPart.Position)
+    Line.Color = getgenv().Settings.Kalslock.TracerColor
+        Line.Transparency = getgenv().Settings.Kalslock.TracerTransparency
+        Line.Thickness = getgenv().Settings.Kalslock.TracerThickness
+        Line.From = Vector2.new(mouse.X, mouse.Y + Inset)
+        Line.To = Vector2.new(Vector1.X, Vector1.Y)
+        Line.Visible = getgenv().Settings.Kalslock.Tracer
+        Text.Position = Vector2.new(mouse.X, mouse.Y + Inset)
+        Text.Visible = getgenv().Settings.Kalslock.Texts
+        Text.Center = true
+        Text.Outline = true
+        Text.Font = 1
+        Text.Size = getgenv().Settings.Kalslock.TextSize
+        Text.Color = getgenv().Settings.Kalslock.TextColor
+        Text.Text = getgenv().Settings.Kalslock.TextInput
+        Circle.Position = Vector2.new(mouse.X, mouse.Y + Inset)
+        Circle.Visible = getgenv().Settings.Kalslock.Circles
+        Circle.Thickness = 1.5
+        Circle.Thickness = getgenv().Settings.Kalslock.CircleThickness
+        Circle.Radius = getgenv().Settings.Kalslock.CircleFOV
+        Circle.Color = getgenv().Settings.Kalslock.CircleColor
+        Circle.Filled = getgenv().Settings.Kalslock.CircleFilled
+        Circle.Transparency = getgenv().Settings.Kalslock.CircleTransparency
+        Circle1.Visible = true
+        Circle1.Radius = getgenv().Settings.Kalslock.CircleTransparencyOutline
+        Circle1.Position = Vector2.new(mouse.X, mouse.Y + Inset)
+        Circle1.Thickness = 5
+        Circle1.Color = getgenv().Settings.Kalslock.OutlineColor
+
+else
+        Circle.Visible = false
+        Line.Visible = false
+        Text.Visible = false
+        Circle1.Visible = false
+    placemarker.CFrame = CFrame.new(0, 9999, 0)
+end
+if Settings.Kalslock.pingprediction == true then
+     pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+     split = string.split(pingvalue,'(')
+     ping = tonumber(split[1])
+    if ping < 130 then
+        PredictionValue = 0.151
+    elseif ping < 125 then
+        PredictionValue = 0.149
+    elseif ping < 110 then
+        PredictionValue = 0.146
+    elseif ping < 105 then
+        PredictionValue = 0.138
+    elseif ping < 90 then
+        PredictionValue = 0.136
+    elseif ping < 80 then
+        PredictionValue = 0.134
+    elseif ping < 70 then
+        PredictionValue = 0.131
+    elseif ping < 60 then
+        PredictionValue = 0.1229
+    elseif ping < 50 then
+        PredictionValue = 0.1225
+    elseif ping < 40 then
+        PredictionValue = 0.1256
+    end
+end
+end)
+
+local mt = getrawmetatable(game)
+local old = mt.__namecall
+setreadonly(mt, false)
+mt.__namecall = newcclosure(function(...)
+local args = {...}
+if enabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" and Settings.Kalslock.Enabled and Plr.Character ~= nil then
+
+    -- args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*accomidationfactor)
+    --[[
+    if Settings.Kalslock.airshots == true then
+        if game.Workspace.Players[Plr.Name].Humanoid:GetState() == Enum.HumanoidStateType.Freefall then -- Plr.Character:WaitForChild("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall
+            
+            --// Airshot
+            args[3] = Plr.Character.LeftFoot.Position+(Plr.Character.LeftFoot.Velocity*PredictionValue)
+
+        else
+            args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*PredictionValue)
+
+        end
+    else
+args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*PredictionValue)
+end
+]]
+if Prediction == true then
+        
+args[3] = Plr.Character[SelectedPart].Position+(Plr.Character[SelectedPart].Velocity*PredictionValue)
+
+else
+
+args[3] = Plr.Character[SelectedPart].Position
+
+end
+
+return old(unpack(args))
+end
+return old(...)
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+if getgenv().Settings.Kalslock.RESOVLER == true and Plr.Character ~= nil and enabled and Settings.Kalslock.Enabled then
+if getgenv().Settings.Kalslock.airshots == true and enabled and Plr.Character ~= nil then
+    
+if game.Workspace.Players[Plr.Name].Humanoid:GetState() == Enum.HumanoidStateType.Freefall then -- Plr.Character:WaitForChild("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall
+        
+
+
+if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
+AnchorCount = AnchorCount + 1
+if AnchorCount >= MaxAnchor then
+Prediction = false
+wait(2)
+AnchorCount = 0;
+end
+else
+Prediction = true
+AnchorCount = 0;
+end
+
+SelectedPart = "LeftFoot"
+
+else
+        
+
+if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
+AnchorCount = AnchorCount + 1
+if AnchorCount >= MaxAnchor then
+Prediction = false
+wait(2)
+AnchorCount = 0;
+end
+
+else
+Prediction = true
+AnchorCount = 0;
+end
+
+SelectedPart = "HumanoidRootPart"
+
+end
+else
+
+        
+
+if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
+AnchorCount = AnchorCount + 1
+if AnchorCount >= MaxAnchor then
+Prediction = false
+wait(2)
+AnchorCount = 0;
+end
+else
+ Prediction = true
+ AnchorCount = 0;
+end
+SelectedPart = "HumanoidRootPart"
+end
+else
+SelectedPart = "HumanoidRootPart"
+end
+end)
+
+if getgenv().Settings.Kalslock.NoBulletDelay == true then
+    local FuckDelay = game:GetService("CorePackages").Packages
+    FuckDelay:Destroy()
+end
+
+if getgenv().Settings.Kalslock.Autoclicker == true then
+    local time = getgenv().Settings.Kalslock.AutoclickerTime --decrease if too slow increase if too fast
+
+    click = false
+    m = game.Players.LocalPlayer:GetMouse()
+    m.KeyDown:connect(function(key)
+    if key == getgenv().Settings.Kalslock.AutoclickerKey then
+    if click == true then click = false
+    elseif
+    click == false then click = true
+    
+    while click == true do 
+    wait(time)
+    mouse1click()
+    end
+    end
+    end
+    end)
+end
+    end,
+})
+
+
+Lock:dropdown({
+    Name = "Key",
+    StartingText = "Q",
+    Items = {
+        {"q", "q"},
+        {"x", "x"},
+        {"z", "z"},
+        {"e", "e"},
+        {"c", "c"} -- "q", "x", "z", "c", "e"
+    },
+    Description = "Changes lock key",
+    Callback = function(v)
+        getgenv().Settings.Kalslock.Key = v
+    end,
+})
+
+
+Lock:toggle({
+    Name = "Tracer",
+         StartingState = true,
+         Description = "Toggles tracer on/off",
+     Callback = function(state)
+        getgenv().Settings.Kalslock.Tracer = state
+     end,
+ })
+
+Lock:toggle({
+    Name = "Circle",
+         StartingState = true,
+         Description = "Toggles circle on/off",
+     Callback = function(state)
+        getgenv().Settings.Kalslock.Circles = state
+     end,
+ })
+
+Lock:slider({Name = "Circle Fov",Default = 100, Min = 1, Max = 300,Callback = function(v)
+    getgenv().Settings.Kalslock.CircleFOV = v
+ end})
+
+ Lock:toggle({
+    Name = "Text",
+         StartingState = true,
+         Description = "Toggles skittle-ware text",
+     Callback = function(state)
+        getgenv().Settings.Kalslock.Texts = state
+     end,
+ })
+
+ Lock:toggle({
+    Name = "Notification",
+         StartingState = true,
+         Description = "Toggles skittle-ware text",
+     Callback = function(state)
+        getgenv().Settings.Kalslock.notifaction = state
+     end,
+ })
+
+ Lock:color_picker({
+    Name = "Color",
+    Style = Library.ColorPickerStyles.Legacy,
+    Description = "Dont work on dot color, if it did it would lag <3",
+    Callback = function(color)
+        getgenv().Settings.Kalslock.TracerColor = color
+        getgenv().Settings.Kalslock.CircleColor = color
+        getgenv().Settings.Kalslock.TextColor = color
+    end,
+})
+
+Lock:button({
+    Name = "Antilock",
+    Callback = function()
+        local Toggled = false
+
+            function AA()
+                local oldVelocity = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity =
+                    Vector3.new(oldVelocity.X, -70, oldVelocity.Z)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity =
+                    Vector3.new(oldVelocity.X, oldVelocity.Y, oldVelocity.Z)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity =
+                    Vector3.new(oldVelocity.X, -70, oldVelocity.Z)
+                game.Players.LocalPlayer.Character.Humanoid.HipHeight = 4.14
+            end
+
+            game:GetService("UserInputService").InputBegan:Connect(
+                function(Key)
+                    if
+                        Key.KeyCode == Enum.KeyCode[getgenv().AntilockKey:upper()] and
+                            not game:GetService("UserInputService"):GetFocusedTextBox()
+                     then
+                        if Toggled then
+                            Toggled = false
+                            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 1.85
+                        elseif not Toggled then
+                            Toggled = true
+
+                            while Toggled do
+                                AA()
+                                task.wait()
+                            end
+                        end
+                    end
+                end)
+    end,
+})
+
+Lock:dropdown({
+    Name = "Antilock key",
+    StartingText = "C",
+    Items = {
+        {"c", "c"},
+        {"h", "h"},
+        {"j", "j"},
+        {"t", "t"},
+        {"y", "y"},
+        {"x", "x"},
+        {"z", "z"}
+    },
+    Description = "Changes antilock key",
+    Callback = function(v)
+        getgenv().AntilockKey = v
+    end,
+})
+
+
+Cframe:button({
+    Name = "Cframe",
+    Callback = function()
+        repeat
+            wait()
+        until game:IsLoaded()
+        local L_134_ = game:service("Players")
+        local L_135_ = L_134_.LocalPlayer
+        repeat
+            wait()
+        until L_135_.Character
+        local L_136_ = game:service("UserInputService")
+        local L_137_ = game:service("RunService")
+        getgenv().Multiplier = 0.5
+        local L_138_ = true
+        local L_139_
+        L_136_.InputBegan:connect(
+            function(L_140_arg0)
+                if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
+                    Multiplier = Multiplier + 0.01
+                    print(Multiplier)
+                    wait(0.2)
+                    while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
+                        wait()
+                        Multiplier = Multiplier + 0.01
+                        print(Multiplier)
+                    end
+                end
+                if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
+                    Multiplier = Multiplier - 0.01
+                    print(Multiplier)
+                    wait(0.2)
+                    while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
+                        wait()
+                        Multiplier = Multiplier - 0.01
+                        print(Multiplier)
+                    end
+                end
+                if L_140_arg0.KeyCode == getgenv().speed then
+                    L_138_ = not L_138_
+                    if L_138_ == true then
+                        repeat
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame +
+                                game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
+                            game:GetService("RunService").Stepped:wait()
+                        until L_138_ == false
+                    end
+                end
+            end)
+    end,
+})
+
+Cframe:dropdown({
+    Name = "Key",
+    StartingText = "z",
+    Items = {
+        {"q", "Q"},
+        {"x", "X"},
+        {"z", "Z"},
+        {"e", "E"},
+        {"c", "C"} -- "q", "x", "z", "c", "e"
+    },
+    Description = "Changes lock key",
+    Callback = function(v)
+        getgenv().speed = Enum.KeyCode[v]
+    end,
+})
+
+Cframe:slider({Name = "Speed",Default = 1, Min = 1, Max = 4,Callback = function(v)
+    getgenv().Multiplier = v
+ end})
+
+ Character:button({
+    Name = "FE Headless",
+    Callback = function()
+        game.Players.LocalPlayer.Character.Head:BreakJoints()
+        game.Players.LocalPlayer.Character.Head.CFrame = CFrame.new(0, 1000000000000, 0)
+    end,
+})
+
+Character:button({
+    Name = "Non-fe Headless",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        local head = character:WaitForChild("Head")
+
+        head.Transparency = 1
+        head.face:Destroy()
+    end,
+})
+
+Character:button({
+    Name = "FE Right Korblox",
+    Callback = function()
+        game:GetService("Players").LocalPlayer.Character.RightUpperLeg:Destroy()
+    end,
+})
+
+Character:button({
+    Name = "FE Left Korblox",
+    Callback = function()
+        game:GetService("Players").LocalPlayer.Character.LeftUpperLeg:Destroy()
+    end,
+})
+
+Character:button({
+    Name = "Non-fe right Korblox",
+    Callback = function()
+        local ch = game.Players.LocalPlayer
+            local c = ch.Character
+            c.RightLowerLeg.MeshId = "902942093"
+            c.RightLowerLeg.Transparency = "1"
+            c.RightUpperLeg.MeshId = "http://www.roblox.com/asset/?id=902942096"
+            c.RightUpperLeg.TextureID = "http://roblox.com/asset/?id=902843398"
+            c.RightFoot.MeshId = "902942089"
+            c.RightFoot.Transparency = "1"
+    end,
+})
+
+Character:button({
+    Name = "Non-fe left Korblox",
+    Callback = function()
+        local _ = game.Players.LocalPlayer
+        local _ = _.Character
+        _.LeftLowerLeg.MeshId = "101851582"
+        _.LeftLowerLeg.Transparency = "1"
+        _.LeftUpperLeg.MeshId = "http://www.roblox.com/asset/?id=101851582"
+        _.LeftUpperLeg.TextureID = "http://roblox.com/asset/?id=101851582"
+        _.LeftFoot.MeshId = "101851582"
+        _.LeftFoot.Transparency = "1"
+    end,
+})
+
+Character:button({
+    Name = "Valkryie",
+    Callback = function()
+        function l(a, _)
+            local b = Instance.new("Weld")
+            b.Part0 = a.Parent
+            b.Part1 = _.Parent
+            b.C0 = a.CFrame
+            b.C1 = _.CFrame
+            b.Parent = a.Parent
+            return b
+        end
+        local function b(c, b, _, a, d, e)
+            local f = Instance.new("Weld")
+            f.Name = c
+            f.Part0 = _
+            f.Part1 = a
+            f.C0 = d
+            f.C1 = e
+            f.Parent = b
+            return f
+        end
+        local function a(_, b)
+            for _, _ in pairs(_:GetChildren()) do
+                if _:IsA("Attachment") and _.Name == b then
+                    return _
+                elseif not _:IsA("Accoutrement") and not _:IsA("Tool") then
+                    local _ = a(_, b)
+                    if _ then
+                        return _
+                    end
+                end
+            end
+        end
+        function k(_, d)
+            d.Parent = _
+            local e = d:FindFirstChild("Handle")
+            if e then
+                local c = e:FindFirstChildOfClass("Attachment")
+                if c then
+                    local _ = a(_, c.Name)
+                    if _ then
+                        l(_, c)
+                    end
+                else
+                    local c = _:FindFirstChild("Head")
+                    if c then
+                        local a = CFrame.new(0, 0.5, 0)
+                        local _ = d.AttachmentPoint
+                        b("HeadWeld", c, c, e, a, _)
+                    end
+                end
+            end
+        end
+        local _ = 1365767
+        local _ = game:GetObjects("rbxassetid://" .. tostring(_))[1]
+        k(game.Players.LocalPlayer.Character, _)
+    end,
+})
+
+Character:button({
+    Name = "Fiery horns",
+    Callback = function()
+        function l(a, _)
+            local b = Instance.new("Weld")
+            b.Part0 = a.Parent
+            b.Part1 = _.Parent
+            b.C0 = a.CFrame
+            b.C1 = _.CFrame
+            b.Parent = a.Parent
+            return b
+        end
+        local function b(c, b, _, a, d, e)
+            local f = Instance.new("Weld")
+            f.Name = c
+            f.Part0 = _
+            f.Part1 = a
+            f.C0 = d
+            f.C1 = e
+            f.Parent = b
+            return f
+        end
+        local function a(_, b)
+            for _, _ in pairs(_:GetChildren()) do
+                if _:IsA("Attachment") and _.Name == b then
+                    return _
+                elseif not _:IsA("Accoutrement") and not _:IsA("Tool") then
+                    local _ = a(_, b)
+                    if _ then
+                        return _
+                    end
+                end
+            end
+        end
+        function k(_, d)
+            d.Parent = _
+            local e = d:FindFirstChild("Handle")
+            if e then
+                local c = e:FindFirstChildOfClass("Attachment")
+                if c then
+                    local _ = a(_, c.Name)
+                    if _ then
+                        l(_, c)
+                    end
+                else
+                    local c = _:FindFirstChild("Head")
+                    if c then
+                        local a = CFrame.new(0, 0.5, 0)
+                        local _ = d.AttachmentPoint
+                        b("HeadWeld", c, c, e, a, _)
+                    end
+                end
+            end
+        end
+        local _ = 215718515
+        local _ = game:GetObjects("rbxassetid://" .. tostring(_))[1]
+        k(game.Players.LocalPlayer.Character, _)
+    end,
+})
+
+Character:button({
+    Name = "Frozen horns",
+    Callback = function()
+        function l(a, _)
+            local b = Instance.new("Weld")
+            b.Part0 = a.Parent
+            b.Part1 = _.Parent
+            b.C0 = a.CFrame
+            b.C1 = _.CFrame
+            b.Parent = a.Parent
+            return b
+        end
+        local function b(c, b, _, a, d, e)
+            local f = Instance.new("Weld")
+            f.Name = c
+            f.Part0 = _
+            f.Part1 = a
+            f.C0 = d
+            f.C1 = e
+            f.Parent = b
+            return f
+        end
+        local function a(_, b)
+            for _, _ in pairs(_:GetChildren()) do
+                if _:IsA("Attachment") and _.Name == b then
+                    return _
+                elseif not _:IsA("Accoutrement") and not _:IsA("Tool") then
+                    local _ = a(_, b)
+                    if _ then
+                        return _
+                    end
+                end
+            end
+        end
+        function k(_, d)
+            d.Parent = _
+            local e = d:FindFirstChild("Handle")
+            if e then
+                local c = e:FindFirstChildOfClass("Attachment")
+                if c then
+                    local _ = a(_, c.Name)
+                    if _ then
+                        l(_, c)
+                    end
+                else
+                    local c = _:FindFirstChild("Head")
+                    if c then
+                        local a = CFrame.new(0, 0.5, 0)
+                        local _ = d.AttachmentPoint
+                        b("HeadWeld", c, c, e, a, _)
+                    end
+                end
+            end
+        end
+        local _ = 74891470
+        local _ = game:GetObjects("rbxassetid://" .. tostring(_))[1]
+        k(game.Players.LocalPlayer.Character, _)
+    end,
+})
+
+Character:button({
+    Name = "Black iron horns",
+    Callback = function()
+        function l(a, _)
+            local b = Instance.new("Weld")
+            b.Part0 = a.Parent
+            b.Part1 = _.Parent
+            b.C0 = a.CFrame
+            b.C1 = _.CFrame
+            b.Parent = a.Parent
+            return b
+        end
+        local function b(c, b, _, a, d, e)
+            local f = Instance.new("Weld")
+            f.Name = c
+            f.Part0 = _
+            f.Part1 = a
+            f.C0 = d
+            f.C1 = e
+            f.Parent = b
+            return f
+        end
+        local function a(_, b)
+            for _, _ in pairs(_:GetChildren()) do
+                if _:IsA("Attachment") and _.Name == b then
+                    return _
+                elseif not _:IsA("Accoutrement") and not _:IsA("Tool") then
+                    local _ = a(_, b)
+                    if _ then
+                        return _
+                    end
+                end
+            end
+        end
+        function k(_, d)
+            d.Parent = _
+            local e = d:FindFirstChild("Handle")
+            if e then
+                local c = e:FindFirstChildOfClass("Attachment")
+                if c then
+                    local _ = a(_, c.Name)
+                    if _ then
+                        l(_, c)
+                    end
+                else
+                    local c = _:FindFirstChild("Head")
+                    if c then
+                        local a = CFrame.new(0, 0.5, 0)
+                        local _ = d.AttachmentPoint
+                        b("HeadWeld", c, c, e, a, _)
+                    end
+                end
+            end
+        end
+        local _ = 628771505
+        local _ = game:GetObjects("rbxassetid://" .. tostring(_))[1]
+        k(game.Players.LocalPlayer.Character, _)
+    end,
+})
+
+Character:button({
+    Name = "Purple sparkle time",
+    Callback = function()
+        function l(a, _)
+            local b = Instance.new("Weld")
+            b.Part0 = a.Parent
+            b.Part1 = _.Parent
+            b.C0 = a.CFrame
+            b.C1 = _.CFrame
+            b.Parent = a.Parent
+            return b
+        end
+        local function b(c, b, _, a, d, e)
+            local f = Instance.new("Weld")
+            f.Name = c
+            f.Part0 = _
+            f.Part1 = a
+            f.C0 = d
+            f.C1 = e
+            f.Parent = b
+            return f
+        end
+        local function a(_, b)
+            for _, _ in pairs(_:GetChildren()) do
+                if _:IsA("Attachment") and _.Name == b then
+                    return _
+                elseif not _:IsA("Accoutrement") and not _:IsA("Tool") then
+                    local _ = a(_, b)
+                    if _ then
+                        return _
+                    end
+                end
+            end
+        end
+        function k(_, d)
+            d.Parent = _
+            local e = d:FindFirstChild("Handle")
+            if e then
+                local c = e:FindFirstChildOfClass("Attachment")
+                if c then
+                    local _ = a(_, c.Name)
+                    if _ then
+                        l(_, c)
+                    end
+                else
+                    local c = _:FindFirstChild("Head")
+                    if c then
+                        local a = CFrame.new(0, 0.5, 0)
+                        local _ = d.AttachmentPoint
+                        b("HeadWeld", c, c, e, a, _)
+                    end
+                end
+            end
+        end
+        local _ = 63043890
+        local _ = game:GetObjects("rbxassetid://" .. tostring(_))[1]
+        k(game.Players.LocalPlayer.Character, _)
+    end,
+})
+
+Character:button({
+    Name = "Blue sparkle time",
+    Callback = function()
+        function l(a, _)
+            local b = Instance.new("Weld")
+            b.Part0 = a.Parent
+            b.Part1 = _.Parent
+            b.C0 = a.CFrame
+            b.C1 = _.CFrame
+            b.Parent = a.Parent
+            return b
+        end
+        local function b(c, b, _, a, d, e)
+            local f = Instance.new("Weld")
+            f.Name = c
+            f.Part0 = _
+            f.Part1 = a
+            f.C0 = d
+            f.C1 = e
+            f.Parent = b
+            return f
+        end
+        local function a(_, b)
+            for _, _ in pairs(_:GetChildren()) do
+                if _:IsA("Attachment") and _.Name == b then
+                    return _
+                elseif not _:IsA("Accoutrement") and not _:IsA("Tool") then
+                    local _ = a(_, b)
+                    if _ then
+                        return _
+                    end
+                end
+            end
+        end
+        function k(_, d)
+            d.Parent = _
+            local e = d:FindFirstChild("Handle")
+            if e then
+                local c = e:FindFirstChildOfClass("Attachment")
+                if c then
+                    local _ = a(_, c.Name)
+                    if _ then
+                        l(_, c)
+                    end
+                else
+                    local c = _:FindFirstChild("Head")
+                    if c then
+                        local a = CFrame.new(0, 0.5, 0)
+                        local _ = d.AttachmentPoint
+                        b("HeadWeld", c, c, e, a, _)
+                    end
+                end
+            end
+        end
+        local _ = 119916949
+        local _ = game:GetObjects("rbxassetid://" .. tostring(_))[1]
+        k(game.Players.LocalPlayer.Character, _)
+    end,
+})
+
+Character:button({
+    Name = "Red sparkle time",
+    Callback = function()
+        function l(a, _)
+            local b = Instance.new("Weld")
+            b.Part0 = a.Parent
+            b.Part1 = _.Parent
+            b.C0 = a.CFrame
+            b.C1 = _.CFrame
+            b.Parent = a.Parent
+            return b
+        end
+        local function b(c, b, _, a, d, e)
+            local f = Instance.new("Weld")
+            f.Name = c
+            f.Part0 = _
+            f.Part1 = a
+            f.C0 = d
+            f.C1 = e
+            f.Parent = b
+            return f
+        end
+        local function a(_, b)
+            for _, _ in pairs(_:GetChildren()) do
+                if _:IsA("Attachment") and _.Name == b then
+                    return _
+                elseif not _:IsA("Accoutrement") and not _:IsA("Tool") then
+                    local _ = a(_, b)
+                    if _ then
+                        return _
+                    end
+                end
+            end
+        end
+        function k(_, d)
+            d.Parent = _
+            local e = d:FindFirstChild("Handle")
+            if e then
+                local c = e:FindFirstChildOfClass("Attachment")
+                if c then
+                    local _ = a(_, c.Name)
+                    if _ then
+                        l(_, c)
+                    end
+                else
+                    local c = _:FindFirstChild("Head")
+                    if c then
+                        local a = CFrame.new(0, 0.5, 0)
+                        local _ = d.AttachmentPoint
+                        b("HeadWeld", c, c, e, a, _)
+                    end
+                end
+            end
+        end
+        local _ = 72082328
+        local _ = game:GetObjects("rbxassetid://" .. tostring(_))[1]
+        k(game.Players.LocalPlayer.Character, _)
+    end,
+})
+
+Character:button({
+    Name = "Beast mode",
+    Callback = function()
+        local _ = game:GetService("Players").LocalPlayer
+        local _ = _.Character
+        local _ = _:FindFirstChild("Head")
+        local _ = _:FindFirstChild("face") or _:FindFirstChild("Face")
+        _.Texture = "rbxassetid://127959433"
+    end,
+})
+
+Character:button({
+    Name = "Blizzard beast mode",
+    Callback = function()
+        local _ = game:GetService("Players").LocalPlayer
+            local _ = _.Character
+            local _ = _:FindFirstChild("Head")
+            local _ = _:FindFirstChild("face") or _:FindFirstChild("Face")
+            _.Texture = "rbxassetid://209712379"
+    end,
+})
+
+Character:button({
+    Name = "Plauful vampire",
+    Callback = function()
+        local _ = game:GetService("Players").LocalPlayer
+            local _ = _.Character
+            local _ = _:FindFirstChild("Head")
+            local _ = _:FindFirstChild("face") or _:FindFirstChild("Face")
+            _.Texture = "rbxassetid://2409281591"
+    end,
+})
+
+Character:button({
+    Name = "Prankster",
+    Callback = function()
+        local _ = game:GetService("Players").LocalPlayer
+            local _ = _.Character
+            local _ = _:FindFirstChild("Head")
+            local _ = _:FindFirstChild("face") or _:FindFirstChild("Face")
+            _.Texture = "rbxassetid://20052028"
+    end,
+})
+
+Character:button({
+    Name = "Troublemaker",
+    Callback = function()
+        local _ = game:GetService("Players").LocalPlayer
+        local _ = _.Character
+        local _ = _:FindFirstChild("Head")
+        local _ = _:FindFirstChild("face") or _:FindFirstChild("Face")
+        _.Texture = "rbxassetid://22920500"
+    end,
+})
+
+ Misc:button({
+    Name = "Trashtalk",
+    Callback = function()
+        getgenv().words = {
+            "seedling",
+            "little puppy",
+            "kids using a samsung fridge",
+            "clown",
+            "eat dirt son",
+            "how did u miss that many shots",
+            "sonned",
+            "trash kid",
+            "LOL LOOK AT YOU KID",
+            "my grandma is better then you and shes dead",
+            "ur so useless lol",
+            "please stop trying ur embarassing"
+        }
+
+        game.Players.LocalPlayer:GetMouse().KeyDown:connect(
+            function(key)
+                if key == getgenv().trashtalkkey then
+                    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
+                        words[math.random(#getgenv().words)],
+                        "All"
+                    )
+                end
+            end)
+    end,
+})
+
+Misc:dropdown({
+    Name = "Key",
+    StartingText = "j",
+    Items = {
+        {"j", "j"},
+        {"h", "h"},
+        {"t", "t"},
+        {"q", "q"},
+        {"c", "c"},
+        {"z", "z"}
+    },
+    Callback = function(v)
+        getgenv().trashtalkkey = state
+    end,
+})
+
+
+Misc:slider({Name = "Fov",Default = 70, Min = 70, Max = 120,Callback = function(v)
+    workspace.CurrentCamera.FieldOfView = v
+end})
+
+Misc:button({
+    Name = "Anonymous",
+    Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/A7XkWtF6'))()
+    end,
+})
+
+Misc:dropdown({
+    Name = "Animation changer",
+    StartingText = "Select",
+    Items = {
+        {"Tryhard", "Tryhard"},
+        {"Chill", "Chill"},
+        {"Barbie", "Barbie"}
+    },
+    Description = "Changes player animation",
+    Callback = function(v)
+        getgenv().Animation = v
+
+            if getgenv().Animation == "Tryhard" then
+                game.Players.LocalPlayer.Character.Animate.idle.Animation1.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921301576"
+                game.Players.LocalPlayer.Character.Animate.idle.Animation2.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921302207"
+                game.Players.LocalPlayer.Character.Animate.walk.WalkAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=616168032"
+                game.Players.LocalPlayer.Character.Animate.run.RunAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=616163682"
+                game.Players.LocalPlayer.Character.Animate.jump.jump.AnimationId =
+                    "http://www.roblox.com/asset/?id=1083218792"
+                game.Players.LocalPlayer.Character.Animate.climb.ClimbAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921329322"
+                game.Players.LocalPlayer.Character.Animate.fall.FallAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921337907"
+                game.Players.LocalPlayer.Character.Animate.Players.LocalPlayer.Character.Humanoid.Jump = false
+            elseif getgenv().Animation == "Chill" then
+                game.Players.LocalPlayer.Character.Animate.idle.Animation1.AnimationId =
+                    "http://www.roblox.com/asset/?id=11600207363"
+                game.Players.LocalPlayer.Character.Animate.idle.Animation2.AnimationId =
+                    "http://www.roblox.com/asset/?id=11600208470"
+                game.Players.LocalPlayer.Character.Animate.walk.WalkAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=616168032"
+                game.Players.LocalPlayer.Character.Animate.run.RunAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=11600211410"
+                game.Players.LocalPlayer.Character.Animate.jump.jump.AnimationId =
+                    "http://www.roblox.com/asset/?id=1083218792"
+                game.Players.LocalPlayer.Character.Animate.climb.ClimbAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921053544"
+                game.Players.LocalPlayer.Character.Animate.fall.FallAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921061530"
+                game.Players.LocalPlayer.Character.Animate.Players.LocalPlayer.Character.Humanoid.Jump = false
+            elseif getgenv().Animation == "Barbie" then
+                game.Players.LocalPlayer.Character.Animate.idle.Animation1.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921272275"
+                game.Players.LocalPlayer.Character.Animate.idle.Animation2.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921273958"
+                game.Players.LocalPlayer.Character.Animate.walk.WalkAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=616168032"
+                game.Players.LocalPlayer.Character.Animate.run.RunAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921057244"
+                game.Players.LocalPlayer.Character.Animate.jump.jump.AnimationId =
+                    "http://www.roblox.com/asset/?id=1083218792"
+                game.Players.LocalPlayer.Character.Animate.climb.ClimbAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921053544"
+                game.Players.LocalPlayer.Character.Animate.fall.FallAnim.AnimationId =
+                    "http://www.roblox.com/asset/?id=10921061530"
+                game.Players.LocalPlayer.Character.Animate.Players.LocalPlayer.Character.Humanoid.Jump = false
+            end
+    end,
+})
+
+Misc:button({
+    Name = "RTX",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.ga/TdFKyOTg/raw"))()
+    end,
+})
+
+Misc:button({
+    Name = "Spoof ping",
+    Callback = function()
+        local PerformanceStats = game:GetService("CoreGui"):WaitForChild("RobloxGui"):WaitForChild("PerformanceStats");
+        local PingLabel;
+        for I, Child in next, PerformanceStats:GetChildren() do
+            if Child.StatsMiniTextPanelClass.TitleLabel.Text == "Ping" then
+                PingLabel = Child.StatsMiniTextPanelClass.ValueLabel;
+                break;
+            end;
+        end;
+        
+        local text = "0.00 ms";
+        PingLabel:GetPropertyChangedSignal("Text"):Connect(function()
+            PingLabel.Text = text;
+        end);
+        PingLabel.Text = text;
+    end,
+})
+
+Misc:button({
+    Name = "Spoof Memory",
+    Callback = function()
+        local PerformanceStats = game:GetService("CoreGui"):WaitForChild("RobloxGui"):WaitForChild("PerformanceStats");
+        local MemLabel;
+        for I, Child in next, PerformanceStats:GetChildren() do
+            if Child.StatsMiniTextPanelClass.TitleLabel.Text == "Mem" then
+                MemLabel = Child.StatsMiniTextPanelClass.ValueLabel;
+                break;
+            end;
+        end;
+        
+        local text = "99999.99 MB";
+        MemLabel:GetPropertyChangedSignal("Text"):Connect(function()
+            MemLabel.Text = text;
+        end);
+        MemLabel.Text = text;
+    end,
+})
+
+Misc:button({
+    Name = "Chat spy",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/nzXicwc1", true))()
+    end,
+})
+
+Misc:button({
+    Name = "Rejoin",
+    Callback = function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+    end,
+})
+
+if getgenv().Premium then
+
+    local Premium = SkittleWare:tab{
+        Icon = "rbxassetid://1178571805",
+        Name = "Premium"
+    }
+    
+    Premium:button({
+        Name = "Infinite jump",
+        Callback = function()
+            local Player = game:GetService "Players".LocalPlayer
+            local UIS = game:GetService "UserInputService"
+
+            function Action(Object, Function)
+                if Object ~= nil then
+                    Function(Object)
+                end
+            end
+
+            UIS.InputBegan:connect(
+                function(UserInput)
+                    if
+                        UserInput.UserInputType == Enum.UserInputType.Keyboard and
+                            UserInput.KeyCode == Enum.KeyCode.Space
+                     then
+                        Action(
+                            Player.Character.Humanoid,
+                            function(self)
+                                if
+                                    self:GetState() == Enum.HumanoidStateType.Jumping or
+                                        self:GetState() == Enum.HumanoidStateType.Freefall
+                                 then
+                                    Action(
+                                        self.Parent.HumanoidRootPart,
+                                        function(self)
+                                            self.Velocity = Vector3.new(0, getgenv().Jumpheight, 0)
+                                        end
+                                    )
+                                end
+                            end
+                        )
+                    end
+                end
+            )
+        end,
+    })
+
+    Premium:slider({Name = "Jump height",Default = 50, Min = 50, Max = 200,Callback = function(v)
+        getgenv().Jumpheight = v
+    end})
+
+    Premium:button({
+        Name = "Antilock resolver",
+        Callback = function()
+            local RunService = game:GetService("RunService")
+
+            RunService.Heartbeat:Connect(
+                function()
+                    pcall(
+                        function()
+                            for i, v in pairs(game.Players:GetChildren()) do
+                                if v.Name ~= game.Players.LocalPlayer.Name then
+                                    local hrp = v.Character.HumanoidRootPart
+                                    hrp.Velocity = Vector3.new(hrp.Velocity.X, 0, hrp.Velocity.Z)
+                                    hrp.AssemblyLinearVelocity = Vector3.new(hrp.Velocity.X, 0, hrp.Velocity.Z)
+                                end
+                            end
+                        end
+                    )
+                end
+            )
+        end,
+    })
+
+    Premium:button({
+        Name = "Desync",
+        Callback = function()
+            game.StarterGui:SetCore(
+                "SendNotification",
+                {
+                    Title = "Toggle key: " .. getgenv().DesyncKey, -- the title (ofc)
+                    Text = "When enabled, no one can shoot you when you stand still", -- what the text says (ofc)
+                    Icon = "rbxassetid://12309653753", -- the image if u want.
+                    Duration = 5 -- how long the notification should in secounds
+                }
+            )
+
+            --// Services
+            checkcaller = checkcaller
+            newcclosure = newcclosure
+            hookmetamethod = hookmetamethod
+
+            local PastedSources = false
+            local BruhXD = game:GetService("RunService")
+            local LocalPlayer = game:GetService("Players").LocalPlayer
+            local Bullshit = LocalPlayer:GetMouse()
+
+            --// Toggles
+            Bullshit.KeyDown:Connect(
+                function(SayNoToOblivity)
+                    if SayNoToOblivity == string.lower(getgenv().DesyncKey) then
+                        pcall(
+                            function()
+                                if PastedSources == false then
+                                    PastedSources = true
+                                    game.StarterGui:SetCore(
+                                        "SendNotification",
+                                        {
+                                            Title = "Skittle-Ware", -- the title (ofc)
+                                            Text = "Desync: Enabled", -- what the text says (ofc)
+                                            Icon = "rbxassetid://12309653753", -- the image if u want.
+                                            Duration = 5 -- how long the notification should in secounds
+                                        }
+                                    )
+                                elseif PastedSources == true then
+                                    PastedSources = false
+                                    game.StarterGui:SetCore(
+                                        "SendNotification",
+                                        {
+                                            Title = "Skittle-Ware", -- the title (ofc)
+                                            Text = "Desync: Disabled", -- what the text says (ofc)
+                                            Icon = "rbxassetid://12309653753", -- the image if u want.
+                                            Duration = 5 -- how long the notification should in secounds
+                                        }
+                                    )
+                                end
+                            end
+                        )
+                    end
+                end
+            )
+
+            Bullshit.KeyDown:Connect(
+                function(SayNoToOblivity)
+                    if SayNoToOblivity == ("=") then
+                        game:GetService("TeleportService"):Teleport(game.PlaceId, LocalPlayer)
+                    end
+                end
+            )
+
+            --// Desync_Source
+            function RandomNumberRange(a)
+                return math.random(-a * 100, a * 100) / 100
+            end
+
+            function RandomVectorRange(a, b, c)
+                return Vector3.new(RandomNumberRange(a), RandomNumberRange(b), RandomNumberRange(c))
+            end
+
+            local DesyncTypes = {}
+            BruhXD.Heartbeat:Connect(
+                function()
+                    if PastedSources == true then
+                        DesyncTypes[1] = LocalPlayer.Character.HumanoidRootPart.CFrame
+                        DesyncTypes[2] = LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity
+
+                        local SpoofThis = LocalPlayer.Character.HumanoidRootPart.CFrame
+
+                        SpoofThis = SpoofThis * CFrame.new(Vector3.new(0, 0, 0))
+                        SpoofThis =
+                            SpoofThis *
+                            CFrame.Angles(
+                                math.rad(RandomNumberRange(180)),
+                                math.rad(RandomNumberRange(180)),
+                                math.rad(RandomNumberRange(180))
+                            )
+
+                        LocalPlayer.Character.HumanoidRootPart.CFrame = SpoofThis
+
+                        LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(1, 1, 1) * 16384
+
+                        BruhXD.RenderStepped:Wait()
+
+                        LocalPlayer.Character.HumanoidRootPart.CFrame = DesyncTypes[1]
+                        LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = DesyncTypes[2]
+                    end
+                end
+            )
+
+            --// Hook_CFrame
+            local XDDDDDD = nil
+            XDDDDDD =
+                hookmetamethod(
+                game,
+                "__index",
+                newcclosure(
+                    function(self, key)
+                        if PastedSources == true then
+                            if not checkcaller() then
+                                if
+                                    key == "CFrame" and PastedSources == true and LocalPlayer.Character and
+                                        LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and
+                                        LocalPlayer.Character:FindFirstChild("Humanoid") and
+                                        LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0
+                                 then
+                                    if self == LocalPlayer.Character.HumanoidRootPart then
+                                        return DesyncTypes[1] or CFrame.new()
+                                    elseif self == LocalPlayer.Character.Head then
+                                        return DesyncTypes[1] and
+                                            DesyncTypes[1] +
+                                                Vector3.new(
+                                                    0,
+                                                    LocalPlayer.Character.HumanoidRootPart.Size / 2 + 0.5,
+                                                    0
+                                                ) or
+                                            CFrame.new()
+                                    end
+                                end
+                            end
+                        end
+                        return XDDDDDD(self, key)
+                    end
+                )
+            )
+        end,
+    })
+
+    Premium:dropdown({
+        Name = "Desync key",
+        StartingText = "m",
+        Items = {
+            {"m", "m"},
+            {"n", "n"},
+            {"b", "b"},
+            {"c", "c"},
+            {"z", "cz"}
+        },
+        Description = "Changes lock key",
+        Callback = function(v)
+            getgenv().DesyncKey = v
+        end,
+    })
+
+end
+
+
+
+
+-- notification shit
+        Lock:prompt{
+            Title = "Update log",
+            Text = "Execution glitch fixed and byfron bypassed!",
+            Buttons = {
+                W = function()
+                    Lock:prompt{
+                        Followup = true,
+                        Title = "Discord",
+                        Text = "Discord.gg/p6mmb58fqq",
+                        Buttons = {
+                            W = function()
+                            	
+                            end,
+                        }
+                    }
+                end,
+            }
+        }
+end
