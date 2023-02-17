@@ -31,5 +31,5 @@ wait(5)
 if game.PlaceId == 574407221 then -- example lol
     print('who tf plays this nigga')
 else
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Script.txt", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Bloodlxst/SkittleWare/main/Games/Da%20hood", true))()
 end
