@@ -6,6 +6,6 @@ wait(4)
             Title = "Down rn", -- the title (ofc)
             Text = "updating soon", -- what the text says (ofc)
             Icon = "rbxassetid://12309653753", -- the image if u want.
-            Duration = 5 -- how long the notification should in secounds
+            Duration = math.huge -- how long the notification should in secounds
         }
     )
