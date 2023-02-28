@@ -4,7 +4,7 @@
             for i,v in pairs(game.Players:GetChildren()) do
                 if v.Character then
                     if table.find(Owner,v.UserId) then
-                        v.Character.Humanoid.DisplayName = "[👑🔨📜⭐] "..v.DisplayName 
+                        v.Character.Humanoid.DisplayName = "[🔨👑📜💎] "..v.DisplayName 
                     end
                 end
             end
