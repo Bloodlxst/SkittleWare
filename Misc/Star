@@ -1,4 +1,4 @@
-    coroutine.resume(coroutine.create(function()
+ coroutine.resume(coroutine.create(function()
         while wait(0) do
         local success, err = pcall(function()
             for i,v in pairs(game.Players:GetChildren()) do
@@ -12,18 +12,16 @@
         end
     end))
       
-    if not table.find(Owner,v.UserId) then
     coroutine.resume(coroutine.create(function()
-        while wait(1) do
+        while wait(5) do
         local success, err = pcall(function()
             for i,v in pairs(game.Players:GetChildren()) do
                 if v.Character then
                     if table.find(Premium,v.UserId) then
-                        v.Character.Humanoid.DisplayName = "[⭐] "..v.DisplayName
+                        v.Character.Humanoid.DisplayName = "[🎭] "..v.DisplayName
                     end
                 end
             end
         end)
         end
     end))
-    end
