@@ -1,1 +1,11 @@
-print("hai")
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
+textLabel.Position = UDim2.new(0.35, 0, 0.4, 0)
+textLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+textLabel.TextColor3 = Color3.new(1, 1, 1)
+textLabel.FontSize = Enum.FontSize.Size24
+textLabel.Text = "new discord: https://discord.gg/qFA9epwKmC or dsc.gg/4real"
+textLabel.Parent = screenGui
